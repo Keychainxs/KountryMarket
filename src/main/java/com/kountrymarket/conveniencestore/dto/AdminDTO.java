@@ -10,7 +10,9 @@ public class AdminDTO {
     private List<String> roles;    
     private String email;
 
-    private String password;
+    private String password; 
+
+    public AdminDTO() {}
 
     public AdminDTO(String username, String email, String password, Long adminID, List<String> roles) {
             if(roles == null) {
@@ -25,14 +27,13 @@ public class AdminDTO {
     }
 
     public Long getAdminID() {
-        
-
+    
         return adminID;
     }
 
     public void setAdminID(Long adminID) {
         if (adminID == null) {
-            System.out.println("Setting the AdminID caused an error, STATUS: NULL");
+           throw new IllegalArgumentException("admin ID Found to be bull");
         }
         
         this.adminID = adminID;
@@ -43,8 +44,8 @@ public class AdminDTO {
     }
 
     public void setUsername(String username) {
-        if(username.length() < 0) {
-            throw new IllegalArgumentException("Username length is less than zero");
+        if(username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Email length is less than zero");
         }
         
         this.username = username;
@@ -56,7 +57,7 @@ public class AdminDTO {
 
     
     public void setEmail(String email) {
-        if(email.length() == 0) {
+        if(email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Email length is less than zero");
         }
         

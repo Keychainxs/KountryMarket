@@ -9,4 +9,5 @@ import com.kountrymarket.conveniencestore.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
    
     Optional<User> findByUsername(String username);
+
 }

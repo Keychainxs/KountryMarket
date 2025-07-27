@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequestMapping("/api/admin")
 
 
-public class UserAdmin {
+public class AdminController {
     
     @PostMapping("/api/register")
     public ResponseEntity<?> registerAdmin(@RequestBody AdminDTO adminDTO, boolean success) {

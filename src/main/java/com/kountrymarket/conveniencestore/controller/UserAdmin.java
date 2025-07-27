@@ -2,6 +2,8 @@ package com.kountrymarket.conveniencestore.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kountrymarket.conveniencestore.dto.AdminDTO;
 import com.kountrymarket.conveniencestore.dto.LoginDTO;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 
@@ -31,7 +36,7 @@ public class UserAdmin {
 
     @PostMapping("/api/admin/login")
     public ResponseEntity<?> loginAdmin(@RequestBody LoginDTO loginDTO, boolean success) {
-        //TODO: process POST request
+       
         if(success) {
             return ResponseEntity.ok("User Successfully Logged In.");
         }
@@ -40,17 +45,34 @@ public class UserAdmin {
         
 
     }
-
+    
+    @PostMapping("/logout")
+        public ResponseEntity<?> logoutAdmin(       
+           
+            Authentication authentication,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+            SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler(); 
+            logoutHandler.logout(request, response, authentication);
+        return ResponseEntity.ok("Logged out");
+}
+    
+    
+    
+    /*
+     * 
+     * 
+     * 
+     * 
+     *    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
     @PostMapping("/logout")
-    public String logoutAdmin(@RequestBody String entity) {
-        //TODO: process POST request
-            
-        return entity;
-    }
-    
-    
-    
+    public String logoutAdmin(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
+        this.logoutHandler.logout(request, response, authentication);
+         
+            return "redirect:/home";
 
+    }
+     */
   
 }

@@ -31,10 +31,11 @@ public class AdminService {
 
 
         User user = new User();
-        user.setUserName(adminDTO.getEmail());
+        user.setUserName(adminDTO.getUsername());
         user.setPassword(passwordEncoder.encode(adminDTO.getPassword()));
 
         user.setRole("ADMIN");
+        userRepo.save(user);
         
     }
 
@@ -57,6 +58,8 @@ public class AdminService {
       return admin;
       
     }
+
+    public void logoutAdmin() {}
 
 
 

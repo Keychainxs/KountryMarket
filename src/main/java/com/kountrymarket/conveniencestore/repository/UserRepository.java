@@ -1,4 +1,4 @@
-package  com.kountrymarket.conveniencestore.repsitory;
+package  com.kountrymarket.conveniencestore.repository;
 
 import java.util.Optional;
 

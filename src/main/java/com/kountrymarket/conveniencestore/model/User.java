@@ -18,41 +18,29 @@ public class User {
     private String role;
     private String username;
     
-    public User() {}
+   public User() {}
 
     public User(String username, Long id, String password, String role) {
-
         this.username = username;
         this.id = id;
         this.password = password;
         this.role = role;
-
-    }   
-
-    public String getUserName() {
-        return username;
     }
 
-    public void setUserName(String username) {
-        this.username = username;
-    }
-
-
-    public Long getUserIDLong() {
+    public Long getId() {
         return id;
     }
 
-    public Long setID(Long id) {
-        return this.id = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
-    public String getRole() {
-        return role;
-    }    
-
-    public String setRole(String role) {
-        return this.role = role;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -63,5 +51,12 @@ public class User {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
    
 }

@@ -1,5 +1,8 @@
 package com.kountrymarket.conveniencestore.controller;
 
+import java.util.Collections;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kountrymarket.conveniencestore.dto.AdminDTO;
 import com.kountrymarket.conveniencestore.dto.LoginDTO;
+import com.kountrymarket.conveniencestore.model.User;
+import com.kountrymarket.conveniencestore.security.JwtUtil;
+import com.kountrymarket.conveniencestore.service.AdminService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,27 +29,28 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 public class AdminController {
-    
-    @PostMapping("/api/register")
-    public ResponseEntity<?> registerAdmin(@RequestBody AdminDTO adminDTO, boolean success) {
-        if(success) {
-            return ResponseEntity.ok("User Registered");
-        }
+   
+    @Autowired
+    private JwtUtil jwtUtil;
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Registration");
-    
+    @Autowired
+    private AdminService adminService;
+
+   @PostMapping("/register")
+   public ResponseEntity<?> registerAdmin(@RequestBody AdminDTO adminDTO) {
+    try {
+        adminService.registerAdmin(adminDTO);
+        return ResponseEntity.ok("User Registered");
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+}
 
-    @PostMapping("/api/admin/login")
-    public ResponseEntity<?> loginAdmin(@RequestBody LoginDTO loginDTO, boolean success) {
-       
-        if(success) {
-            return ResponseEntity.ok("User Successfully Logged In.");
-        }
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Loggin Credentials, Try Again");
-        
-
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+        User admin = adminService.loginAdmin(loginDTO);
+        String jwt = jwtUtil.generateToken(admin.getUsername(), admin.getRole());
+        return ResponseEntity.ok(Collections.singletonMap("token", jwt));
     }
     
     @PostMapping("/logout")
@@ -57,22 +64,8 @@ public class AdminController {
         return ResponseEntity.ok("Logged out");
 }
     
+   
     
-    
-    /*
-     * 
-     * 
-     * 
-     * 
-     *    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
-    @PostMapping("/logout")
-    public String logoutAdmin(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
-        this.logoutHandler.logout(request, response, authentication);
-         
-            return "redirect:/home";
-
-    }
-     */
   
 }

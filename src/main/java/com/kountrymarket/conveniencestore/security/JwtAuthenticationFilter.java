@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.kountrymarket.conveniencestore.model.User;
-import com.kountrymarket.conveniencestore.repsitory.UserRepository;
+import com.kountrymarket.conveniencestore.repository.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

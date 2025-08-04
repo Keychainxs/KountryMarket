@@ -27,7 +27,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RequestMapping("/api/admin")
 
-
 public class AdminController {
    
     @Autowired
@@ -62,7 +61,7 @@ public class AdminController {
             SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler(); 
             logoutHandler.logout(request, response, authentication);
         return ResponseEntity.ok("Logged out");
-}
+    }
     
    
     

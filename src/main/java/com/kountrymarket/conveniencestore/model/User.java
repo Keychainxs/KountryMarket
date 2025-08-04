@@ -1,17 +1,16 @@
 package com.kountrymarket.conveniencestore.model;
 
-import org.springframework.data.annotation.Id;
-
+//import org.springframework.data.annotation.Id;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class User {
-    
+    @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
    
-    @Id
     private Long id;
 
     private String password;
@@ -19,7 +18,7 @@ public class User {
     private String username;
     
    public User() {}
-
+    
     public User(String username, Long id, String password, String role) {
         this.username = username;
         this.id = id;

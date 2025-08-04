@@ -28,8 +28,10 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/admin/login", "/api/admin/register").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().permitAll()
             );
+        http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
